@@ -11,8 +11,6 @@ import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JFrame;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,11 +26,33 @@ import java.util.LinkedList;
  *
  * @author Tuks
  */
-public class Game extends JFrame implements Runnable, KeyListener, MouseListener {
+public class Game extends JFrame implements Runnable, KeyListener {
+  
+   int puntaje;
+   int numCartas;
+   char palo;
+   int valorCarta;
+   int acum;
+   boolean playJug;
+   boolean playDeal;
+   Carta[] mano;
    
+   public void init()
+   {
+         puntaje=0;
+         numCartas=52;
+         acum=0;
+         playJug =false;
+         playDeal =false;
+         
+   }
+   
+   
+      
     public Game() {
         init();
         start();
+        
     }
     
      public void start () {
@@ -57,6 +77,60 @@ public class Game extends JFrame implements Runnable, KeyListener, MouseListener
                 }
             }
         }
+        
+        public void Deal()
+        {
+            playJug = true;
+            for (int i=0;i<2;i++)
+            {
+                
+            }
+        }
+        
+	public void keyPressed(KeyEvent e) 
+        {
+            /*
+             * DEAL
+             * Se inicia el juego.
+             */
+            if (e.getKeyCode() == KeyEvent.VK_Z) 
+            {    
+                if (!playDeal && !playJug)
+                {
+                    Deal();
+                }
+            }
+            /*
+             * HIT
+             * Se recibe una carta nueva.
+             */
+            else if (e.getKeyCode() == KeyEvent.VK_X) 
+            {    
+		if (!playDeal && playJug)
+                {
+                    Hit();
+                }
+            } 
+            /*
+             * STAND
+             * Termina turno de jugador, empieza el del dealer.
+             */
+            else if (e.getKeyCode() == KeyEvent.VK_C) 
+            {    
+		if (!playDeal && playJug)
+                {
+                    Stand();
+                }
+            }
+        }
+    
+    public void keyTyped(KeyEvent e){
+    }
+    
+    public void keyReleased(KeyEvent e){
+    	
+    }
+ 
         
  
     
